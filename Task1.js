@@ -7,17 +7,6 @@ var exampleBlockId = '00000000000000001e8d6829a8a21adc5d38d0a473b144b6765798e61f
 
 getBlock(exampleBlockId, hashBlock);
 
-function swapEndian(hex)
-{	
-	var output = '';
-	var count  = hex.length;
-	for(var i = 2; i <= count; i+=2)
-	{
-		output += hex[count - i] + hex[ 1 + count - i];
-	}	
-	return output;
-}
-
 function getBlock(blockId, callback)
 {
 	var location = 'http://blockexplorer.com/rawblock/' + blockId;
@@ -36,31 +25,30 @@ function getBlock(blockId, callback)
 	});	
 }
 
+function swapEndian(hex)
+{	
+	var output = '';
+	var count  = hex.length;
+	for(var i = 2; i <= count; i+=2)
+	{
+		output += hex[count - i] + hex[ 1 + count - i];
+	}	
+	return output;
+}
+
+/**
+ * Converts a decimal to its 4 byte hexadecimal equivalent.
+ **/
 function dec2hex(i) 
 {	
-   var hex = (i+0x00000).toString(16);
-   
+  // var hex = (i+0x00000).toString(16);
+   var hex = (i).toString(16);
    paddedString = hex;
     if (paddedString.length < 8) {
         paddedString = ('00000000' + paddedString).slice(-8);
     } 
 	//console.log('padded: ' +paddedString);
    return swapEndian(paddedString);
-}
-
-function hex2bin(hex)
-{	
-	var
-    bytes = [],
-    str;
-
-	for(var i=0; i< hex.length-1; i+=2){
-		bytes.push(parseInt(hex.substr(i, 2), 16));
-	}
-
-	str = String.fromCharCode.apply(String, bytes);
-	
-	return str;
 }
 
 function hashBlock(block)
@@ -82,13 +70,13 @@ function hashBlock(block)
 	*/
 	
 	var headerHex = version + prevBlockHash + rootHash + time + bits + nonce;
-
-	//console.log(headerHex);
+	var headerBin = (new Buffer(headerHex, 'hex')).toString('binary');
 	
 	var hasher1 = crypto.createHash('sha256');
-	var hasher2 = crypto.createHash('sha256');	
+	var hasher2 = crypto.createHash('sha256');
 	
-	hasher1.update(hex2bin(headerHex), 'binary');
+	hasher1.update(headerBin, 'binary');
+	
 	var hash1 = hasher1.digest('binary');
 	
 	hasher2.update(hash1, 'binary');
