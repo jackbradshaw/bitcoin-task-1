@@ -25,55 +25,63 @@ function getBlock(blockId, callback)
 	});	
 }
 
-function swapEndian(hex)
-{	
-	var output = '';
-	var count  = hex.length;
-	for(var i = 2; i <= count; i+=2)
+/**
+ * Performs in place byte reversal to swap endian
+ **/
+function swapBufferEndian(buffer)
+{
+	var  start = 0, end = buffer.length - 1;
+	while( start < end)
 	{
-		output += hex[count - i] + hex[ 1 + count - i];
-	}	
-	return output;
+		var temp = buffer[start];
+		buffer[start] = buffer[end];
+		buffer[end] = temp;
+		start++;
+		end--;
+	}
 }
 
-/**
- * Converts a decimal to its 4 byte hexadecimal equivalent.
- **/
-function dec2hex(i) 
-{	
-  // var hex = (i+0x00000).toString(16);
-   var hex = (i).toString(16);
-   paddedString = hex;
-    if (paddedString.length < 8) {
-        paddedString = ('00000000' + paddedString).slice(-8);
-    } 
-	//console.log('padded: ' +paddedString);
-   return swapEndian(paddedString);
+function hex2LEbin(hex)
+{
+	var buffer = new Buffer(hex, 'hex'); 
+	swapBufferEndian(buffer);
+	return buffer.toString('binary');
+}
+
+function dec2LEbin(dec)
+{
+	var buffer = new Buffer(4); 
+	buffer.writeUInt32LE(dec,0);	
+	//console.log(buffer);
+	return buffer.toString('binary');
 }
 
 function hashBlock(block)
-{	
-	var version =  dec2hex(block.ver),
-    prevBlockHash =  swapEndian(block.prev_block),
-    rootHash = swapEndian(block.mrkl_root),
-    time = dec2hex(block.time),
-    bits = dec2hex(block.bits),
-    nonce = dec2hex(block.nonce);	
+{		
+	var version =  dec2LEbin(block.ver),
+    prevBlockHash =  hex2LEbin(block.prev_block),
+    rootHash = hex2LEbin(block.mrkl_root),
+    time = dec2LEbin(block.time),
+    bits = dec2LEbin(block.bits),
+    nonce = dec2LEbin(block.nonce);	
 	
-	var headerHex = version + prevBlockHash + rootHash + time + bits + nonce;
+	var headerBin = version + prevBlockHash + rootHash + time + bits + nonce;
 	
-	var hash = doubleHashHex(headerHex);
+	var hash = doubleHashBin(headerBin);
 	
-	console.log('HASH: ' + swapEndian(hash));	
+	//load into to buffer so we can convert back to big endian:
+	var buffer = new Buffer(hash, 'binary');
+	swapBufferEndian(buffer);
+	
+	console.log('HASH: ' + buffer.toString('hex'));		
 }
 
 /*
-* Performs a double hash on input hexadecimal string
+* Performs a double hash on input binary string.
+* Returns binary string. 
 */
-function doubleHashHex(hex)
-{
-	var bin = (new Buffer(hex, 'hex')).toString('binary');
-	
+function doubleHashBin(bin)
+{	
 	var hasher1 = crypto.createHash('sha256');
 	var hasher2 = crypto.createHash('sha256');
 	
@@ -83,7 +91,7 @@ function doubleHashHex(hex)
 	
 	hasher2.update(hash1, 'binary');
 	
-	var hash2 = hasher2.digest('hex');
+	var hash2 = hasher2.digest('binary');
 	return hash2;	
 }
 
@@ -94,7 +102,7 @@ function calulateMerkleRoot(block)
 
 function formBottomRow(transactions)
 {
-
+	
 }
 
 function formNextTreeRow(previousRow)
