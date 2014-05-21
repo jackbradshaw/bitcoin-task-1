@@ -24,7 +24,7 @@ function getBlock(blockId, callback)
 
 		res.on('end', function() {
 			var blockResponse = JSON.parse(body)
-			callback(blockId, blockResponse);
+			callback(blockResponse);
 		});
 	});	
 }
@@ -32,7 +32,7 @@ function getBlock(blockId, callback)
 /**
  * Callback for getBlock. Prints information about block to screen.
  **/
-function display(blockId, block)
+function display(block)
 {
 	var tree = new MerkleTree(block);
 	
@@ -52,7 +52,7 @@ function display(blockId, block)
 	var blockHash = computeBlockHash(block);
 	var blockHashHex = getBufferHexBE(blockHash);
 	console.log('Hash: ' + blockHashHex);
-	if(blockHashHex == blockId) console.log('Hash correct.');	
+	if(blockHashHex == block.hash) console.log('Hash correct.');	
 	
 	function getBufferHexBE(buffer){
 		return swapBufferEndian(buffer).toString('hex');
@@ -111,10 +111,10 @@ function computeBlockHash(block)
 	return hashBuffer;	
 }
 
-/*
-* Performs a double hash on input buffer.
-* Returns buffer. 
-*/
+/**
+ * Performs a double hash on input buffer.
+ * Returns buffer. 
+ **/
 function doubleHash(buffer)
 {	
 	var hasher1 = crypto.createHash('sha256');
@@ -127,9 +127,9 @@ function doubleHash(buffer)
 	return hash2;	
 }
 
-/*
+/**
  * Object to calculate the merkle tree of a block.
- */
+ **/
 function MerkleTree(block)
 {
 	//Flat array of buffers containing the merkle tree
@@ -155,10 +155,10 @@ function MerkleTree(block)
 			//self.merkleTree.push(row[0]);
 	}
 
-	/* *
+	/**
 	 * Forms the bottom row of the merkle tree: 
 	 * An array of Little Endian buffers, ensuring there are an even number of buffers.
-	 * */
+	 **/
 	function formBottomRow(transactions)
 	{
 		var row = [];
@@ -177,10 +177,10 @@ function MerkleTree(block)
 		return row;
 	}
 
-	/* *
+	/**
 	 * Takes the buffers from the previous row and computes 
 	 * the buffers for the next row up
-	 * */
+	 **/
 	function formNextRow(previousRow)
 	{
 		var newRow = [];	
