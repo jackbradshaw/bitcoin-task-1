@@ -1,10 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="Task1.js"></script>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Block Browser</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
-  <body>		
+
+  <body>
+
+       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Block Browser</a>
+        </div>
+		<div class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <input type="text" placeholder="Search Blocks" class="form-control">
+            </div>            
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+        <div class="navbar-collapse collapse">
+          
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">	
+<div class="panel panel-primary">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">
+			  <ul class="pager">
+			<li class="previous"><a href="#">&larr; Older</a></li>
+			<li class="h3">Blocks</li>
+		    <li class="next"><a href="#">Newer &rarr;</a></li>
+		</ul>
+		<form role="form">  
+			  <!--<div class="input-group">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Filter</button>
+				</span>
+				<input type="text" class="form-control" placeholder="Filter by block id, block hash, transaction hash or address.">
+			</div>-->
+			</form>	
+		</div>		
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Number</th>
+					<th>Hash</th>
+					<th>Time</th>
+					<th>Transactions</th>
+					<th>Total BTC</th>
+					<th>Size (kB)</th>
+				</th>
+			</thead>
+			<tbody>
+			<tr>
+				<td><a href="/block/000000000000000007edf81b7faec3e29951cf9406fbddae7a1a844093549b3c">302228</a></td>
+				<td><a href="/block/000000000000000007edf81b7faec3e29951cf9406fbddae7a1a844093549b3c">7edf81b7fa...</a></td>
+				<td>2014-05-23 11:02:15</td>
+				<td>1007</td>
+				<td>30476.68412969</td>
+				<td>348.588</td>
+				</tr>
+				<tr>
+				<td><a href="/block/00000000000000007a29d10a15121da93743186fbee9c3681b1472334298b6f5">302224</a></td>
+				<td><a href="/block/00000000000000007a29d10a15121da93743186fbee9c3681b1472334298b6f5">7a29d10a15...</a></td>
+				<td>2014-05-23 10:13:18</td>
+				<td>284</td>
+				<td>6644.64941173</td>
+				<td>301.284</td>
+				</tr>
+				<tr>
+				<td><a href="/block/00000000000000005f1dddd56cd88b1fb039f4b4687eef95490325e2cc797318">302223</a></td>
+				<td><a href="/block/00000000000000005f1dddd56cd88b1fb039f4b4687eef95490325e2cc797318">5f1dddd56c...</a></td>
+				<td>2014-05-23 10:10:33</td>
+				<td>862</td>
+				<td>20197.11290384</td>
+				<td>348.772</td>
+				</tr>
+				<tr>
+				<td><a href="/block/00000000000000001a8202937d552bade82173b0140b69f44bb073e7eea9e0b1">302222</a></td>
+				<td><a href="/block/00000000000000001a8202937d552bade82173b0140b69f44bb073e7eea9e0b1">1a8202937d...</a></td>
+				<td>2014-05-23 09:42:14</td>
+				<td>938</td>
+				<td>15371.32016258</td>
+				<td>559.431</td>
+				</tr>
+				<tr>
+				<td><a href="/block/0000000000000000733f1ab40e2fe36947d226c5825b8eaa0576476864ebcf47">302221</a></td>
+				<td><a href="/block/0000000000000000733f1ab40e2fe36947d226c5825b8eaa0576476864ebcf47">733f1ab40e...</a></td>
+				<td>2014-05-23 09:17:10</td>
+				<td>512</td>
+				<td>14841.4283499</td>
+				<td>324.53</td>
+				</tr>
+				<tr>
+				<td><a href="/block/00000000000000005b5b0291d442280c7350fee1494232e657060c5307bd34de">302220</a></td>
+				<td><a href="/block/00000000000000005b5b0291d442280c7350fee1494232e657060c5307bd34de">5b5b0291d4...</a></td>
+				<td>2014-05-23 09:04:37</td>
+				<td>225</td>
+				<td>2854.68540108</td>
+				<td>124.938</td>
+				</tr>
+				<tr>
+				<td><a href="/block/0000000000000000277ee14d766ed423bd1910b6b0da9661a71695cc82d65e1d">302219</a></td>
+				<td><a href="/block/0000000000000000277ee14d766ed423bd1910b6b0da9661a71695cc82d65e1d">277ee14d76...</a></td>
+				<td>2014-05-23 09:00:27</td>
+				<td>434</td>
+				<td>10194.55697698</td>
+				<td>225.463</td>
+				</tr>
+				<tr>
+				<td><a href="/block/0000000000000000439c246a7cff7149633a7ed79557fc7a3119d67ad3b2ba97">302218</a></td>
+				<td><a href="/block/0000000000000000439c246a7cff7149633a7ed79557fc7a3119d67ad3b2ba97">439c246a7c...</a></td>
+				<td>2014-05-23 08:47:08</td>
+				<td>78</td>
+				<td>136.5672534</td>
+				<td>32.942</td>
+				</tr>
+				<tr>
+				<td><a href="/block/000000000000000063e9653ef8f8718a37260b7c7645948e2e5cc82755573ed4">302217</a></td>
+				<td><a href="/block/000000000000000063e9653ef8f8718a37260b7c7645948e2e5cc82755573ed4">63e9653ef8...</a></td>
+				<td>2014-05-23 08:50:52</td>
+				<td>243</td>
+				<td>4249.96150892</td>
+				<td>138.637</td>
+				</tr>
+				<tr>
+				<td><a href="/block/000000000000000039f1635fea2218f204b8a1a272f6dfa1d97da447ba2774b2">302216</a></td>
+				<td><a href="/block/000000000000000039f1635fea2218f204b8a1a272f6dfa1d97da447ba2774b2">39f1635fea...</a></td>
+				<td>2014-05-23 08:46:48</td>
+				<td>483</td>
+				<td>7909.60815968</td>
+				<td>512.261</td>
+				</tr>
+			</tbody>
+		</table>
+        </div>
+      </div>
+	  </div>
+		
+      <hr>
+
+      <footer>
+        <p>&copy; Jack Bradshaw 2014</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+	<script>
+		
+	</script>
   </body>
 </html>
